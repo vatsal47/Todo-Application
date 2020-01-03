@@ -14,7 +14,48 @@ const saveTodos = function (todos) {
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-// Render application todos based on filters
+const removeTodo = function (id) {
+    const todoIndex = todos.findIndex(function (todo) {
+        return todo.id === id    
+    })
+
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
+}
+
+// Get the DOM elements for an individual note
+const generateTodoDOM = function (todo) {
+    const todoEl = document.createElement('div')
+    const checkbox = document.createElement('input')
+    const todoText = document.createElement('span')
+    const removeButton = document.createElement('button')
+    
+    removeButton.addEventListener('click',function(e) {
+        removeTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
+
+    checkbox.setAttribute('type','checkbox')
+    todoEl.appendChild(checkbox)
+    
+    todoText.textContent = todo.text
+    todoEl.appendChild(todotext)
+
+    removeButton.textContent = 'Remove'
+    todoEl.appendChild(button)
+ 
+    return todoEl
+}
+
+// Get the DOM elements for list summary
+const generateSummaryDOM = function (incompleteTodos) {
+    const summary = document.createElement('h2')
+    summary.textContent = `You have ${incompleteTodos.length} todos left`
+    return summary
+}
+
 const renderTodos = function (todos, filters) {
     const filteredTodos = todos.filter(function (todo) {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
@@ -33,18 +74,4 @@ const renderTodos = function (todos, filters) {
     filteredTodos.forEach(function (todo) {
         document.querySelector('#todos').appendChild(generateTodoDOM(todo))
     })
-}
-
-// Get the DOM elements for an individual note
-const generateTodoDOM = function (todo) {
-    const p = document.createElement('p')
-    p.textContent = todo.text
-    return p
-}
-
-// Get the DOM elements for list summary
-const generateSummaryDOM = function (incompleteTodos) {
-    const summary = document.createElement('h2')
-    summary.textContent = `You have ${incompleteTodos.length} todos left`
-    return summary
 }
