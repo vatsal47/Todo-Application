@@ -75,3 +75,32 @@ const renderTodos = function (todos, filters) {
         document.querySelector('#todos').appendChild(generateTodoDOM(todo))
     })
 }
+<<<<<<< HEAD
+=======
+
+// Get the DOM elements for an individual note
+const generateTodoDOM = function (todo) {
+    const todoEl = document.createElement('div')
+    const checkbox = document.createElement('input')
+    const todoText = document.createElement('span')
+    const removeButton = document.createElement('button')
+    
+    checkbox.setAttribute('type','checkbox')
+    todoEl.appendChild(checkbox)
+    
+    todoText.textContent = todo.text
+    todoEl.appendChild(todotext)
+
+    removeButton.textContent = 'Remove'
+    todoEl.appendChild(button)
+ 
+    return todoEl
+}
+
+// Get the DOM elements for list summary
+const generateSummaryDOM = function (incompleteTodos) {
+    const summary = document.createElement('h2')
+    summary.textContent = `You have ${incompleteTodos.length} todos left`
+    return summary
+}
+>>>>>>> 8bdbfb7d3a4232be8824a503f85a770fcc92d052
